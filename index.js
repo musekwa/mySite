@@ -17,7 +17,7 @@ const loginUserController = require('./controllers/loginUser')
 const expressSession = require('express-session');
 const authMiddleware = require('./middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
-
+const logoutController = require('./controllers/logout');
 
 const app = express();
 
@@ -49,7 +49,8 @@ app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController)
 app.post('/users/register', redirectIfAuthenticatedMiddleware, storeUserController);
 app.get('/auth/login', redirectIfAuthenticatedMiddleware, loginController)
 app.post('/users/login', redirectIfAuthenticatedMiddleware, loginUserController);
-
+app.get('/auth/logout', logoutController)
+app.use((req, res)=>res.render('notfound'))
 
 
 app.listen(4000, 
