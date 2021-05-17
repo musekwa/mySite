@@ -18,6 +18,7 @@ const expressSession = require('express-session');
 const authMiddleware = require('./middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
 const logoutController = require('./controllers/logout');
+const flash = require('connect-flash');
 
 const app = express();
 
@@ -39,7 +40,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
 app.set('view engine', 'ejs');
 app.use(express.static('public'))
-
+app.use(flash())
 
 app.get('/', homePageController)
 app.get('/posts/new', authMiddleware, newPostController)
